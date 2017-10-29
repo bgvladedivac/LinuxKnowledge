@@ -25,4 +25,3 @@ Various aspects of the OpenSSH server can be modified in the configuration file 
 2. Prohibit password authentication using SSH => **PasswordAuthentication** yes/no
 3. Configuring alternative ports => **Port** 22
 4. Limiting user access => **Allow users**
-
