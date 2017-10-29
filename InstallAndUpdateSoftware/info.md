@@ -41,6 +41,9 @@ yum history | tail -10 /var/log/yum.log
 
 ## Enable repository
 Enable and disable repository with the **yum-config-manager**. Install the RPM GPG key before installing signed packages.
+```{r, engine='bash', count_lines}
+yum repolist
+```
 
 ## Examing rpm packages
 -q => query <br />
