@@ -2,7 +2,13 @@ The term OpenSSH refers to the software implementation of the Scure Shell used i
 run a shell on a remote system. SSH secures communication through public-key encryption. 
 
 ## SSH key-based authentication
-Users can authenticate ssh logins without a password by using public key authentication, 2 keys are generated, a private key and a public one. The private key file is used as the authentication credential, and like a password, must be kept secret and secure. The public key is copied to systems the usr wants to log into, and is used to verify the private key. An SSH server that has the public key can issue a challenge that can only be answered by a system holding a specific private key. As a result, you could authenticate using he presence of your key. This allows you to access systems in a way that does not require typing a password every time, but is still secure. Key generation is done using the ssh-keygen command. This generates the private key ~/.ssh/id_rsa and the public key ~/.ssh/id_rsa.pub.
+Users can authenticate ssh logins without a password by using public key authentication, 2 keys are generated, a private key and a public one. The private key file is used as the authentication credential, and like a password must be kept secret and secure. The public key is copied to systems the user wants to log into, and is used to verify the private key. An SSH server that has the public key can issue a challenge that can only be answered by a system holding a specific private key. As a result, you could authenticate using he presence of your key. This allows you to access systems in a way that does not require typing a password every time, but is still secure.
+
+Key generation is done using the ssh-keygen command. This generates the private key ~/.ssh/id_rsa and the public key ~/.ssh/id_rsa.pub.
+Before key-based authenticatoin can be used, the public key needs to be copied to the destination system. This can be done with ssh-copy-id.
+
+## Passphrase
+During key generation, there is the option to specify a passphrase which must be provided in order to access your private key. However, this means the passphrase must be eneterd whenever the key is used, making the authentication process no longer password-less. This can be avoided using ssh-agent.
 
 ## Workflow description:
 
