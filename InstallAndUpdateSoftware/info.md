@@ -33,3 +33,11 @@ A new kernel can only be tested by booting to it, the package is designed so tha
 ```{r, engine='bash', count_lines}
 yum list kernel | yum update kernel
 ```
+
+Yum also has the concept of groups, which are collections of related software installed together for a particular purpose. 
+```{r, engine='bash', count_lines}
+yum history | tail -10 /var/log/yum.log
+```
+
+## Enable repository
+Enable and disable repository with the **yum-config-manager**. Install the RPM GPG key before installing signed packages.
