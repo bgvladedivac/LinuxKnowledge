@@ -8,4 +8,28 @@ RPM package manager provides a standard way to package software for distribution
 RPM packages can be digitally signed by the organization that packaged them. All packages from such an organization are normally signed by the same **GPG private key**. If the package is altered, the signature will no longer be valid. 
 
 ## Yum
-Yum searches repositories for packages and their dependencies so they are installed together. The main configuration file for yum is **/etc/yum.conf** with additional repository configuration files located in the **/etc/yum.repos.d**.
+Yum searches repositories for packages and their dependencies so they are installed together. The main configuration file for yum is **/etc/yum.conf** with additional repository configuration files located in the **/etc/yum.repos.d**. Repository configuration file includes at least:
+
+1. Label
+2. Name
+3. URL
+
+```{r, engine='bash', count_lines}
+yum search KEYWORD 
+```
+
+Search all will search through the metadata as well.
+
+```{r, engine='bash', count_lines}
+yum search all 'server' | yum info httpd | 
+```
+
+The update obtains and install a new version of the software package, including any dependencies. The process tries to preserver the old configuration files in place, but in some cases they may be renamed if the packager thinks the old one wil not work after the update. 
+```{r, engine='bash', count_lines}
+yum update PKGNAME 
+```
+
+A new kernel can only be tested by booting to it, the package is designed so that multiple versions may be installed at once.
+```{r, engine='bash', count_lines}
+yum list kernel | yum update kernel
+```
