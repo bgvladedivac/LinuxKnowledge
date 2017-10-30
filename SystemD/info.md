@@ -15,8 +15,8 @@ include **service**, **socket**, **device**, **mount**, **automount**, **swap**,
 Unit files are loaded from a set of paths determined during compilation. 
 
 
-Path | Description | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3   |    
+Path | Description | 
+--- | --- |
+*Still* | `renders` | 
+1 | 2 | 
 
