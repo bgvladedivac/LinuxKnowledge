@@ -17,6 +17,7 @@ Unit files are loaded from a set of paths determined during compilation.
 
 Path | Description | 
 --- | --- |
-*Still* | `renders` | 
-1 | 2 | 
+/etc/systemd/system | Local configuration | 
+/run/systemd/system | Runtime units |
+/usr/lib/systemd/system | Units of installed packages |
 
