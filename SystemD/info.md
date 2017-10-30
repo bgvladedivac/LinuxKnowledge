@@ -21,3 +21,44 @@ Path | Description |
 /run/systemd/system | Runtime units |
 /usr/lib/systemd/system | Units of installed packages |
 
+## Systemctl
+**systemctl** is used to manage different types of units. A list of available units can be displayed with:
+```{r, engine='bash', count_lines}
+systectl -t help
+```
+Service status
+```{r, engine='bash', count_lines}
+[root@serverX ~]#systemctl status sshd.service
+  sshd . service - OpenSSH server daemon
+  Loaded : loaded (/usr/lib/systemd/system/sshd . service; enabled)
+  Active: active ( running) since Thu 2S14-S2-27 11: 51:39 EST; 7h ago
+  Main PID: 1S73 (sshd)
+  CGroup : /system . slice/sshd . service
+           L1073 /usr/sbin/sshd -D
+  Feb 27 11: 51:39 servers. example . com systemd[l] : Started OpenSSH server daemon .
+  Feb 27 11: 51:39 servers. example. com sshd[1S73] : Could not load host key: /et ... y
+  Feb 27 11: 51:39 servers. example. com sshd [1S73] : Server listening on s.s.s.s ... .
+  Feb 27 11: 51:39 servers. example. com sshd[1S73] : Server listening on :: port 22 .
+  Feb 27 11: 53:21 servers. example . com sshd[127S] : error : Could not load host k . . . y
+  Feb 27 11: 53:22 servers. example. com sshd[127S] : Accepted password for root f ... 2
+```
+
+```{r, engine='bash', count_lines}
+systemctl is-active sshd
+systemctl is-enabled sshd
+systemctl --failed --type=service
+```
+Keyword | Description | 
+--- | --- |
+loaded | Unit configuration file has been processed. | 
+active(running) | Running with one or more continuing processes. |
+active(waiting) | Running but waiting for an event. |
+enabled | Will be started at boot time. |
+disabled | Will not be started at boot time. |
+
+## Unit dependencies
+Services may be started as dependencie of other ones. List dependencies: 
+```{r, engine='bash', count_lines}
+systemctl list-dependencies sshd
+```
+
