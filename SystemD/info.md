@@ -1,7 +1,25 @@
-The term OpenSSH refers to the software implementation of the Scure Shell used in the system. SSH is used to securely run a shell on a remote system. SSH secures communication through public-key encryption. 
+## Systemd
+System startup and server processes are managed by the systemd System and Service Manager. Systemd provides a method for activating resources, server daemons and other processes, both at boot time and on a running system. 
 
-## SSH key-based authentication
-Users can authenticate ssh logins without a password by using public key authentication, 2 keys are generated, a private key and a public one. The private key file is used as the authentication credential, and like a password must be kept secret and secure. The public key is copied to systems the user wants to log into, and is used to verify the private key. An SSH server that has the public key can issue a challenge that can only be answered by a system holding a specific private key. As a result, you could authenticate using he presence of your key. This allows you to access systems in a way that does not require typing a password every time, but is still secure.
+Daemons are processes that wait or run in the background performing various tasks. Generally, daemons start automatically at boot time and continue to run until shutdown or until they are manually stopped. By convention, the names of many daemon programs end in the letter "d".
+
+Systemd and its features:
+* on-demand starting of daemons without requiring a separate service.
+* a method of tracking related processes together by using Linux control groups.
+
+## Units
+The **units** are the main systemd object.
+systemd records initialization instructions for each daemon in a configuration file that uses a declarative language. Unit file types
+include **service**, **socket**, **device**, **mount**, **automount**, **swap**, **target**, **path**, **timer**, **snapshot**, **slice** and **scope**.
+
+Unit files are loaded from a set of paths determined during compilation. 
+
+
+| Path          | Descrition           
+| --------------           |:-------------:| -----:|
+| /etc/systemd/system      | Local configurations |
+| /run/systemd/system      | Runtime units      |
+| /usr/lib/systemd/system  | Units of installed packages      |    
 
 Key generation is done using the **ssh-keygen** command. This generates the private key **~/.ssh/id_rsa** and the public key **~/.ssh/id_rsa.pub**. Before key-based authenticatoin can be used, the public key needs to be copied to the destination system. This can be done with **ssh-copy-id**.
 
