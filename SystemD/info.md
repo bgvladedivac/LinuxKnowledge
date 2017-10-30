@@ -61,4 +61,11 @@ Services may be started as dependencie of other ones. List dependencies:
 ```{r, engine='bash', count_lines}
 systemctl list-dependencies sshd
 ```
-
+## Masking services
+A system may have conflicting services installed. Example, network/NetworkManager or firewalld/iptables.
+To prevent confusion, a service may be masked. Masking creates a link in the configuration directories so that if
+the service is started, nothing will happen.
+```{r, engine='bash', count_lines}
+[root@serverX -]# systemctl mask network
+ln -s ' /dev/null' ' /etc/systemd/system/network . service ' 
+```
