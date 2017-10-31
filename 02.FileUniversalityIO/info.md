@@ -17,21 +17,32 @@ Abstraction in terms of **everything is a file** is imlemented by **Application 
 **System call** is the fundamental interface between an application and the Linux kernel. System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls.
 
 ```c
-#include <unistd.h>
-#include <fcntl.h>
- 
-int main()
+The following code, opens tfile twice, write once and read once via two different file descriptors.
+
+#include < string.h >
+#include < unistd.h >
+#include < fcntl.h >
+
+int main (void)
 {
-    int filedesc = open("testfile.txt", O_WRONLY | O_APPEND);
-    if(filedesc < 0)
-        return 1;
- 
-    if(write(filedesc,"This will be output to testfile.txt\n", 36) != 36)
-    {
-        write(2,"There was an error writing to testfile.txt\n");    // strictly not an error, it is allowable for fewer characters than requested to be written.
-        return 1;
-    }
- 
+    int fd[2];
+    char buf1[12] = "just a test";
+    char buf2[12];
+
+    fd[0] = open("tfile",O_RDWR);
+    fd[1] = open("tfile",O_RDWR);
+    
+    write(fd[0],buf1,strlen(buf1));
+    write(1, buf2, read(fd[1],buf2,12));
+
+    close(fd[0]);
+    close(fd[1]);
+
     return 0;
 }
+The output is then:
+
+UNIX> a.out
+just a testUNIX> 
+
 ``` 
