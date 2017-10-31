@@ -1,53 +1,16 @@
-## RPM
-RPM package manager provides a standard way to package software for distribution. Managing software in the form of RPM packages is simpler than working with software that has been extracted into a file system from an archive. RPM package files are named using a combination of the package **name-version-release.architecuture**. Each rpm package is made up of 3 components:
+## Kernel
 
-1. Files installed by the package.
-2. Information about the package(metadata).
-3. Scripts.
+Kernel is often used as a synonym for referring to the central software that manages and allocates computer resources(i.e, the CPU, RAM, and devices). The Linux kernel executable typically resides at the pathname **/boot/vmlinuz**.
 
-RPM packages can be digitally signed by the organization that packaged them. All packages from such an organization are normally signed by the same **GPG private key**. If the package is altered, the signature will no longer be valid. 
+**Tasks performed by the kernel**
+**process scheduling**: pc has one or more CPUs, which execute the instructions of programs. Multiple processes(running programs) can simultaneously reside in memory and each may receive use of the CPUs(s). The rules  which processes receive use of the CPU and for how long are determined by the kernel process scheduler ( rather than the processes themselves ).
+**memory management**: kernel employs virtual memory management. Processes are isolated from one another, so that one process can't read/edit the memory of another. Only part of a process needs to be kept in memory, lowering the memory requirements of each process and allowing more processes to be held in RAM simultaneously. 
+**provisiong of a file system**
+**creation termination of processes**
+**access to devices**: the devices(monitor, mice, disk ...) attached to a computer allow communication of information between the computer and the outside world, permitting I/O. The kernel provides programs with an interface that standadisez and simplifies access to devices.
 
-## Yum
-Yum searches repositories for packages and their dependencies so they are installed together. The main configuration file for yum is **/etc/yum.conf** with additional repository configuration files located in the **/etc/yum.repos.d**. Repository configuration file includes at least:
 
-1. Label
-2. Name
-3. URL
-
-```{r, engine='bash', count_lines}
-yum search KEYWORD 
-```
-
-Search all will search through the metadata as well.
-
-```{r, engine='bash', count_lines}
-yum search all 'server' | yum info httpd | 
-```
-
-The update obtains and install a new version of the software package, including any dependencies. The process tries to preserver the old configuration files in place, but in some cases they may be renamed if the packager thinks the old one wil not work after the update. 
+not work after the update. 
 ```{r, engine='bash', count_lines}
 yum update PKGNAME 
 ```
-
-A new kernel can only be tested by booting to it, the package is designed so that multiple versions may be installed at once.
-```{r, engine='bash', count_lines}
-yum list kernel | yum update kernel
-```
-
-Yum also has the concept of groups, which are collections of related software installed together for a particular purpose. 
-```{r, engine='bash', count_lines}
-yum history | tail -10 /var/log/yum.log
-```
-
-## Enable repository
-Enable and disable repository with the **yum-config-manager**. Install the RPM GPG key before installing signed packages.
-```{r, engine='bash', count_lines}
-yum repolist
-```
-
-## Examing rpm packages
--q => query <br />
--a => all <br />
--l => list files installed by the package <br />
--c => configuration files <br />
--d => documentation files
