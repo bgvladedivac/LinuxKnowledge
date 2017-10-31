@@ -49,3 +49,10 @@ Directory | Information  |
 /proc/sys/fs | Settings related to file systems. |
 /proc/sys/kernel | Various general kernel settings. |
 
+## Accessing /proc files
+Files under **/proc** are often accessed using scripts. For example, we can edit the number of processes running simultaneously:
+
+```{r, engine='bash', count_lines}
+[root@client ~]# echo 10000 > /proc/sys/kernel/pid_max
+```
+Some proc files are read only. This applies to most files under **/proc/pid** directories. Other than the files in the **/proc/PID** subdirectories, most files under **/proc** are owned by root.
