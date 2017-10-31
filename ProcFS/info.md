@@ -39,3 +39,13 @@ exe | Symbolic link to file being executed. |
 fd | Directory containing symbolic links to files opened by this process. |
 mounts | Mount points for this process. |
 task   | Contains one subdirectory for each thread in process. |
+
+## More information
+Various files and subdirectories under **/proc** provide access to system-wide information.
+
+Directory | Information  | 
+--- | --- |
+/proc/net| Status information about networking and sockets. | 
+/proc/sys/fs | Settings related to file systems. |
+/proc/sys/kernel | Various general kernel settings. |
+
