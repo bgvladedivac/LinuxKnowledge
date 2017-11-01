@@ -56,3 +56,12 @@ Files under **/proc** are often accessed using scripts. For example, we can edit
 [root@client ~]# echo 10000 > /proc/sys/kernel/pid_max
 ```
 Some proc files are read only. This applies to most files under **/proc/pid** directories. Other than the files in the **/proc/PID** subdirectories, most files under **/proc** are owned by root.
+
+## Notable files
+**/proc/meminfo** <br/> 
+**/proc/cmdline**  shows the parameetrs that were passed to the kernel at boot time. <br />
+**/proc/cpuinfo** <br />
+**/proc/loadavg** <br />
+**/proc/uptime** <br />
+**/proc/devices**
+
