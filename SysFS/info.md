@@ -1,67 +1,18 @@
-## The need
-In older UNIXs, there was no easy way to analyze/edit properties of the kernel, to answer questions such as:
-* How many processes are running on a system and who owns them ? <br />
-* What files does a process have open ? <br />
-* What files are currently locked, and which processes hold the locks ? <br />
-
-## Procfs
-In order to provide easier access to kernel info, modern UNIX implementations provide a **/proc** virtual file system. This file system resides under the **/proc** directory and contains various files that expose kernel information, allowing
-processes to conveniently read that information, and change it in some cases, using normal file I/O system calls. The /proc file system is said to be virtual because the files and subdirectories that it contains don’t reside on a disk. Instead, the kernel creates them “on the fly” as processes access them.
+## SysFs
+The **/sys** filesystem (sysfs) contains files that provide information about devices: whether it's powered on, the vendor name and model, what bus the device is plugged into, etc. It's of interest to applications that manage devices. Modern Linux distributions include a **/sys**  directory as a virtual filesystem (sysfs, comparable to **/proc**, which is a procfs), which stores and allows modification of the devices connected to the system, whereas many traditional UNIX and Unix-like operating systems use **/sys** as a symbolic link to the kernel source tree. <br />
+<br />
+Some of the SysFs directories:
 
 
-## Obratining Information About a Process
-For each process on the system, the kernel provides a corresponding dir named **/proc/PID**.
+**bus** contains flat directory layout of the various bus types in the kernel. Each bus's directory contains two subdirectories: devices and drivers.<br />
 
+**dev** contains the directories char/ and block/. Inside these two directories there are symlinks named <major>:<minior>. These symlinks point to the sysfs directory for the given device. /sys/dev provides a quick way to lookup the sysfs interface for a device from the result of a stat(2) operation. <br />
+**devices** contains a filesystem representation of the device tree. It mapsdirectly to the internal kernel device tree, which is a hierarchy of struct device.<br />
+**net**  **block** **fs** **class**
+<br /> 
+
+Setting the brightness of a laptop monitor could be achieved from sys:
 ```{r, engine='bash', count_lines}
-[root@client ~]# cat /proc/1/status | more
-Name:	systemd
-Umask:	0000
-State:	S (sleeping)
-Tgid:	1
-Ngid:	0
-Pid:	1
-PPid:	0
-TracerPid:	0
-Uid:	0	0	0	0
-Gid:	0	0	0	0
-FDSize:	64
-Groups:	
-VmPeak:	  193700 kB
-VmSize:	  128164 kB
-VmLck:	       0 kB
+echo N > /sys/class/backlight/acpi_video0/brightness
+
 ```
-
-File | Description | 
---- | --- |
-cmdline | command line args | 
-environ | Environment list NAME=value pairs |
-exe | Symbolic link to file being executed. |
-fd | Directory containing symbolic links to files opened by this process. |
-mounts | Mount points for this process. |
-task   | Contains one subdirectory for each thread in process. |
-
-## More information
-Various files and subdirectories under **/proc** provide access to system-wide information.
-
-Directory | Information  | 
---- | --- |
-/proc/net| Status information about networking and sockets. | 
-/proc/sys/fs | Settings related to file systems. |
-/proc/sys/kernel | Various general kernel settings. |
-
-## Accessing /proc files
-Files under **/proc** are often accessed using scripts. For example, we can edit the number of processes running simultaneously:
-
-```{r, engine='bash', count_lines}
-[root@client ~]# echo 10000 > /proc/sys/kernel/pid_max
-```
-Some proc files are read only. This applies to most files under **/proc/pid** directories. Other than the files in the **/proc/PID** subdirectories, most files under **/proc** are owned by root.
-
-## Notable files
-**/proc/meminfo** <br/> 
-**/proc/cmdline**  shows the parameetrs that were passed to the kernel at boot time. <br />
-**/proc/cpuinfo** <br />
-**/proc/loadavg** <br />
-**/proc/uptime** <br />
-**/proc/devices**
-
