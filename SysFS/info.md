@@ -9,3 +9,7 @@ The sysfs directory arrangement exposes the relationship of kernel data structur
 **devices**: contains a filesystem representation of the device tree. It mapsdirectly to the internal kernel device tree, which is a hierarchy of struct device.<br />
 **net/**<br />
 **fs/**<br /> 
+
+```{r, engine='bash', count_lines}
+echo N > /sys/class/backlight/acpi_video0/brightness
+```
