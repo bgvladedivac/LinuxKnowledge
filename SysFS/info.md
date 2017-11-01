@@ -1,5 +1,5 @@
 ## SysFs
-The **/sys** filesystem (sysfs) contains files that provide information about devices: whether it's powered on, the vendor name and model, what bus the device is plugged into, etc. It's of interest to applications that manage devices. Modern Linux distributions include a **/sys**  directory as a virtual filesystem (sysfs, comparable to **/proc**, which is a procfs), which stores and allows modification of the devices connected to the system, whereas many traditional UNIX and Unix-like operating systems use **/sys** as a symbolic link to the kernel source tree.
+The **/sys** filesystem (sysfs) contains files that provide information about devices: whether it's powered on, the vendor name and model, what bus the device is plugged into, etc. It's of interest to applications that manage devices. Modern Linux distributions include a **/sys**  directory as a virtual filesystem (sysfs, comparable to **/proc**, which is a procfs), which stores and allows modification of the devices connected to the system, whereas many traditional UNIX and Unix-like operating systems use **/sys** as a symbolic link to the kernel source tree. <br />
 <br />
 Some of the SysFs directories:
 
