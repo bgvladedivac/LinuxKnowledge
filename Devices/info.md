@@ -1,14 +1,17 @@
-## Everything is a file
-An often saying of Unix-like OS is that everything is a file. Imagine a file in the context of a word processor. There are two fundamental operations u could do: <br />
-1. Read it <br />
-2. Write to it <br />
+## Device special files/API
+A device special file corresponds to a device on the system. Within the kernel, each device type has a corresponding device driver(a unit of kernel code), which handles all I/O requests for the device.  The API provided by device drivers is fixed,  to the system calls **open()**, **close()**, **read()**, **write()**, **mmap()**, and **ioctl()**.
 
-Consider some of the commont things attached to a computer and how they relate to out fundamental file operations: <br />
-1. The screen is read/write. <br />
-2. The printer is write only. <br />
-3. The CD-ROM is read/write. <br />
+The model that each device driver provides a consistent interface, hiding the differences in operation of individual devices, allows for universality of I/O.
 
-The concept of a file is a good abstraction of either a sink for, or source of data. Its a great abstaction of all the devices one might attach to the computer. It is one of the fundamental roles of the OS to provide this abstraction of the hardware to the programmer.
+## Main distinguishment Character vs. block devices
+
+## Character devices
+Those for which no buffering is performed. They handle data on a character-by-character basis. Terminals and keyboards are exampples of character devices. **Character devices** are read from and written to with two function: foo_read() and foo_write().
+
+
+**Block devices** must be random access, but character devices are not required to be, though some are. **Filesystems can only be mounted if they are on block devices.**
+
+**Character devices** are read from and written to with two function: foo_read() and foo_write(). The read() and write() calls do not return until the operation is complete. By contrast, block devices do not even implement the read() and write() functions, and instead have a function which has historically been called the ``strategy routine.'' Reads and writes are done through the buffer cache mechanism by the generic functions bread(), breada(), and bwrite(). These functions go through the buffer cache, and so may or may not actually call the strategy routine, depending on whether or not the block requested is in the buffer cache (for reads) or on whether or not the buffer cache is full (for writes). A request may be asyncronous: breada() can request the strategy routine to schedule reads that have not been asked for, and to do it asyncronously, in the background, in the hopes that they will be needed later.
 
 ## Impelementing abstraction
 Abstraction in terms of **everything is a file** is imlemented by **Application Programming Interface**(API). A programmer designs a set of functions and documents their **interface** (with which arguements they are called, the return value that they have, we do not care about the inner implementation of the function, but what it wants as arguments and the result that it brings back). From there on, the API could be provided to any external programmer/side to use it in their application.
