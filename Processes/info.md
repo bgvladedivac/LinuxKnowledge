@@ -18,10 +18,10 @@ Each CPU(cpu core) can be working on one process at a single point. As a process
 
 Name | Flag  |  Kernel-defined state |
 --- | --- | --- |
-Running | R | 
-Sleeping | S/D/K |
-Stopped | T |
-Zombie  | Z/X |
+Running | R | The process is either executing on a CPU or waiting to run. |
+Sleeping | S | Waiting for some condition, hardware request, system resource access, signal ... |
+Stopped | T | Has been stopped, usually by being signaled by a user or another process. |
+
 
 
 ```{r, engine='bash', count_lines}
