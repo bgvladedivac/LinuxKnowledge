@@ -61,3 +61,6 @@ root         5  0.0  0.0      0     0 ?        S<   15:26   0:00 [kworker/0:0H
 
 ``
 
+## Running jobs in the background
+Any commmand can be started in the background by appending an ampersand(**&**) to the command line. The bash tracks jobs, per session in a table displayed with the **jobs** command. Background jobs can reconnect to the controlling terminal by being brought to the foreground using the **fg** command with the job ID(%job number).
+
