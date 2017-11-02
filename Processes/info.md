@@ -21,6 +21,8 @@ Name | Flag  |  Kernel-defined state |
 Running | R | The process is either executing on a CPU or waiting to run. |
 Sleeping | S | Waiting for some condition, hardware request, system resource access, signal ... |
 Stopped | T | Has been stopped, usually by being signaled by a user or another process. |
+Terminated | Z | Process has just been terminated. |
+Waiting for device | D | Uninterruptibly waiting for a device to respond |
 
 Additional characters
 
@@ -28,7 +30,8 @@ Name | Flag  |
 --- | --- |  
 < | high-priority |  
 N | low-priority | 
-s | session leader | 
+s | session leader |
+
 
 ## Listing processes
 The **ps** is one of the ways used for listing processes. The command provides detailed information, including:<br />
@@ -64,3 +67,14 @@ root         5  0.0  0.0      0     0 ?        S<   15:26   0:00 [kworker/0:0H
 ## Running jobs in the background
 Any commmand can be started in the background by appending an ampersand(**&**) to the command line. The bash tracks jobs, per session in a table displayed with the **jobs** command. Background jobs can reconnect to the controlling terminal by being brought to the foreground using the **fg** command with the job ID(%job number).
 
+
+## Process control using signals
+A signal is a software interrupt delivered to a process. Signals report events to an executing program. 
+Signal Number| Short Name  |  Definition  |  Purpose  | 
+--- | --- | --- | --- | 
+1 | HUP | Hangup | Used to report termination of t he controlling process of a terminal. | 
+2 | INT | Keyboard interrupt | Causes program termination. Can be blocked or handled. Send by (**Ctrl-C**) |
+9 | KILL | Kill, **unblockable** | Causes abrupt program termination. Cannot be blocked, ignored or handled, always fatal. |
+15 default | TERM | Terminate | Causes program termination. Can be **blocked**, ignored or handled. The polite way to ask a program to terminate |
+18 | CONT | Continue | Sent to a process to resume if stopped. Cannot be blocked. |
+20 | TSTP | Keyboard stop | Can be blocked, ignored or handled. Sent by typing **Ctrl-z** |
