@@ -22,6 +22,14 @@ Running | R | The process is either executing on a CPU or waiting to run. |
 Sleeping | S | Waiting for some condition, hardware request, system resource access, signal ... |
 Stopped | T | Has been stopped, usually by being signaled by a user or another process. |
 
+Additional characters
+
+Name | Flag  |   
+--- | --- |  
+< | high-priority |  
+N | low-priority | 
+s | session leader | 
+
 ## Listing processes
 The **ps** is one of the ways used for listing processes. The command provides detailed information, including:<br />
 * the user identification(**UID**) which determines process privileges. <br />
