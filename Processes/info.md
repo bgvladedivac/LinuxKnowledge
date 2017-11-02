@@ -22,8 +22,14 @@ Running | R | The process is either executing on a CPU or waiting to run. |
 Sleeping | S | Waiting for some condition, hardware request, system resource access, signal ... |
 Stopped | T | Has been stopped, usually by being signaled by a user or another process. |
 
-
-
+## Listing processes
+The **ps** is one of the ways used for listing processes. The command provides detailed information, including:<br />
+* the user identification(**UID**) which determines process privileges. <br />
+* the unique process identifier(**PID**). <br />
+* the CPU and real time. <br />
+* how much memory the process has allocated in various locations. <br />
+* the location of process **STDOUT**, known as controlling terminal. <br />
+* current process state. <br />
 ```{r, engine='bash', count_lines}
 yum search KEYWORD 
 ```
