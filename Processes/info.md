@@ -70,11 +70,4 @@ Any commmand can be started in the background by appending an ampersand(**&**) t
 
 ## Process control using signals
 A signal is a software interrupt delivered to a process. Signals report events to an executing program. 
-Signal Number| Short Name  |  Definition  |  Purpose  | 
---- | --- | --- | --- | 
-1 | HUP | Hangup | Used to report termination of t he controlling process of a terminal. | 
-2 | INT | Keyboard interrupt | Causes program termination. Can be blocked or handled. Send by (**Ctrl-C**) |
-9 | KILL | Kill, **unblockable** | Causes abrupt program termination. Cannot be blocked, ignored or handled, always fatal. |
-15 default | TERM | Terminate | Causes program termination. Can be **blocked**, ignored or handled. The polite way to ask a program to terminate |
-18 | CONT | Continue | Sent to a process to resume if stopped. Cannot be blocked. |
-20 | TSTP | Keyboard stop | Can be blocked, ignored or handled. Sent by typing **Ctrl-z** |
+
