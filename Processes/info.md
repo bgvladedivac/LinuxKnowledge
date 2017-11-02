@@ -30,7 +30,26 @@ The **ps** is one of the ways used for listing processes. The command provides d
 * how much memory the process has allocated in various locations. <br />
 * the location of process **STDOUT**, known as controlling terminal. <br />
 * current process state. <br />
+
+Keep in mind that ff the arguments cannot be located (usually because it has not been set, as is the case of system processes and/or kernel threads) the command name is printed within square brackets.
 ```{r, engine='bash', count_lines}
-yum search KEYWORD 
-```
+
+[devil@client ~]$ ps -ef | more
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  1 15:26 ?        00:00:01 /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+root         2     0  0 15:26 ?        00:00:00 [kthreadd]
+root         3     2  0 15:26 ?        00:00:00 [ksoftirqd/0]
+root         4     2  0 15:26 ?        00:00:00 [kworker/0:0]
+root         5     2  0 15:26 ?        00:00:00 [kworker/0:0H]
+
+
+[devil@client ~]$ ps -aux | more
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  1.1  0.6 128164  6844 ?        Ss   15:26   0:01 /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+root         2  0.0  0.0      0     0 ?        S    15:26   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    15:26   0:00 [ksoftirqd/0]
+root         4  0.0  0.0      0     0 ?        S    15:26   0:00 [kworker/0:0]
+root         5  0.0  0.0      0     0 ?        S<   15:26   0:00 [kworker/0:0H
+
+``
 
