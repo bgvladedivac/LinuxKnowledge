@@ -15,7 +15,7 @@ Abstraction in terms of **everything is a file** is imlemented by **Application 
 
 ## System calls and file descriptors
 **System call** is the fundamental interface between an application and the Linux kernel. System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls. Each process has 3 file descriptors already opened:<br />
-0 => standart input, 1 => standart ouput, 2 => standart error.
+0 => standart input, 1 => standart ouput, 2 => standart error. System calls are how a program enters the kernel to perform some task. Programs use system calls to perform a variety of operations, such as creating processes, doing network and file I/O ...
 
 ```c
 The following code, opens tfile twice, write once and read once via two different file descriptors.
