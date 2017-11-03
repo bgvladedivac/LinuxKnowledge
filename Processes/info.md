@@ -71,3 +71,10 @@ Any commmand can be started in the background by appending an ampersand(**&**) t
 ## Process control using signals
 A signal is a software interrupt delivered to a process. Signals report events to an executing program. 
 
+Signal number | Definition  |  Purpose |
+--- | --- | --- |
+1 | Hangup | Report termination of the controlling process of a terminal. |
+2 | S | Waiting for some condition, hardware request, system resource access, signal ... |
+9 | T | Has been stopped, usually by being signaled by a user or another process. |
+15 | Z | Process has just been terminated. |
+20| D | Uninterruptibly waiting for a device to respond |
