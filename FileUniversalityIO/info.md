@@ -14,8 +14,11 @@ The concept of a file is a good abstraction of either a sink for, or source of d
 Abstraction in terms of **everything is a file** is imlemented by **Application Programming Interface**(API). A programmer designs a set of functions and documents their **interface** (with which arguements they are called, the return value that they have, we do not care about the inner implementation of the function, but what it wants as arguments and the result that it brings back). From there on, the API could be provided to any external programmer/side to use it in their application.
 
 ## System calls and file descriptors
-**System call** is the fundamental interface between an application and the Linux kernel. System calls are how a program enters the kernel to perform some task. Programs use system calls to perform a variety of operations, such as creating processes, doing network and file I/O ... <br /> System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls. Each process has 3 file descriptors already opened:<br />
+**System call** is the fundamental interface between an application and the Linux kernel. System calls are how a program enters the kernel to perform some task. Programs use system calls to perform a variety of operations, such as creating processes, doing network and file I/O ... <br /> 
+
+System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls. Each process has 3 file descriptors already opened:<br />
 0 => standart input, 1 => standart ouput, 2 => standart error. 
+
 
 ```c
 The following code, opens tfile twice, write once and read once via two different file descriptors.
