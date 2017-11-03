@@ -74,7 +74,7 @@ A signal is a software interrupt delivered to a process. Signals report events t
 Signal number | Definition  |  Purpose |
 --- | --- | --- |
 1 | Hangup | Report termination of the controlling process of a terminal. |
-2 | S | Waiting for some condition, hardware request, system resource access, signal ... |
-9 | T | Has been stopped, usually by being signaled by a user or another process. |
-15 | Z | Process has just been terminated. |
-20| D | Uninterruptibly waiting for a device to respond |
+2 | Keyboard interrupt | Causes program termination. Can be blocked or handled. Sent by typing **Ctrl-c** |
+9 | Kill, **unblockable** | Causes abrupt program termination. Cannot be blocked, ignored or handled. Always fatal. |
+15 | Terminate | Causes program termination. Can be bocked, ignored or handled. The polite way to ask a program to terminate. |
+20| Keyboard stop | Can be blocked, ignored or handled. Sent by typing **Ctrl-z** |
