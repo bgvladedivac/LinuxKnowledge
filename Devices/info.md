@@ -1,4 +1,4 @@
-When a program reads or writes data from a file, the requests go to a kernel driver. If the file is a regular file, the data is handled by a filesystem driver. When data is read or written to a device file, the request is handled by the driver for that device. Each device file has an associated number which identifies the driver to use, i.e the SCSI driver number is 8. The next number shows the instance of this device, as the counting start from index 0.  
+When a program reads or writes data from a file, the requests go to a kernel driver. If the file is a regular file, the data is handled by a filesystem driver. When data is read or written to a device file, the request is handled by the driver for that device. Each device file has an associated number(**major nuber**) which identifies the driver to use, i.e the SCSI driver number is 8. The **minor number** shows the instance of this device, as the counting start from index 0.  
 ```{r, engine='bash', count_lines}
 [root@client devil]# ls -l /dev/sda
 brw-rw----. 1 root disk 8, 0 Nov  1 10:35 /dev/sda
@@ -22,7 +22,7 @@ crw--w----. 1 root tty 4, 0 Nov  1 10:35 /dev/tty0
 ```
 
 ## Block devices
-**Block devices** handle data a block at a time. The size of a block depeneds on the type of device, but is typically some multiple of 512 bytes. Examples of block devices include disks, partitions and virtual-block devices(created by LVM). **Filesystems can only be mounted if they are on block device.** . **Block devices** usually behave a lot like ordinary files: they are an array of bytes, and the value that is read at a given location is the value that was last written there. Data from block device can be cached in memory and read back from cache; writes can be buffered. **Block devices** are normally seekable (i.e. there is a notion of position inside the file which the application can change). The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time (e.g. a sector on a hard disk).**Block devices** have a function which has historically been called the ``strategy routine.'' Reads and writes are done through the buffer cache mechanism by the generic functions bread(), breada(), and bwrite(). A request may be asyncronous: breada() can request the strategy routine to schedule reads that have not been asked for, and to do it asyncronously, in the background, in the hopes that they will be needed later.
+**Block devices** handle data a block at a time. The size of a block depeneds on the type of device, but is typically some multiple of 512 bytes. Examples of block devices include disks, partitions and virtual-block devices(created by LVM). **Filesystems can only be mounted if they are on block device.** . **Block devices** usually behave a lot like ordinary files: they are an array of bytes, and the value that is read at a given location is the value that was last written there. Data from block device can be cached in memory and read back from cache; writes can be buffered. **Block devices** are normally seekable (i.e. there is a notion of position inside the file which the application can change). The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time (e.g. a sector on a hard disk).**Block devices** have a function which has historically been called the strategy routine.'' Reads and writes are done through the buffer cache mechanism by the generic functions bread(), breada(), and bwrite(). A request may be asyncronous: breada() can request the strategy routine to schedule reads that have not been asked for, and to do it asyncronously, in the background, in the hopes that they will be needed later.
 
 ```{r, engine='bash', count_lines}
 [root@client devil]# ls -l /dev/sda
@@ -37,7 +37,8 @@ lrwxrwxrwx. 1 root root 7 Nov  1 10:35 /dev/mapper/centos-root -> ../dm-0
 brw-rw----. 1 root disk 253, 0 Nov  1 10:35 /dev/dm-0
 ```
 
-
+## Udev
+Udev is the device manager that creates/removes device nodes in the /dev directory dynamically. Runs in userspace and the user can change device names using **udev rules**. There is a special section for udev.
 
 
 
