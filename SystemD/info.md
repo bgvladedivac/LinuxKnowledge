@@ -69,3 +69,6 @@ the service is started, nothing will happen.
 [root@serverX -]# systemctl mask network
 ln -s ' /dev/null' ' /etc/systemd/system/network . service ' 
 ```
+
+## Targets
+Targets are used for grouping and ordering units. Systemd provides the so called **default target**, which is a state in which the OS will boot, example **graphical target** or **multi-user.target**.
