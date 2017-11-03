@@ -10,6 +10,13 @@ The **environment** of a process includes:
 * a current scheduling context.<br />
 * allocated system resources, such as file descriptors and network ports.<br />
 
+## Independence, think again
+In a Linux system no process is independent of any other process. Every process in the system, except the initial process(**init**/**systemd**) has a parent process. New process are not created, they are copied or rather cloned from previous processes. Every **task_struct** representing a process keeps pointers to its parent process and to its siblings (those processes with the same parent process) as well as to its own child processes. You can see the family relationship between the running processes in a Linux system using the **pstree** command.
+
+
+## Niceness/priority
+In Linux we can set guidelines for the CPU to follow when it is looking at all tasks it has to do. These guidelines are called niceness or nice values. The Linux niceness scale goes from -20 to 19. The lower the number the more priority that task gets. You could use **renice** to change a niceness of a process.
+
 ## How does a process is being created ?
 An existing process(**parent**) duplicates its own address space(**fork**) to create a new **child**. Each process is assigned a unique process ID(**PID**). Through the **fork** route a child process inherits security identifies, previous and current file descriptors, port and resource privileges, environment variables and program code. Normally a parent process **sleeps** while the **child** process runs, setting a request(**wait**) to be signaled when the child completes.
 
@@ -78,3 +85,6 @@ Signal number | Definition  |  Purpose |
 9 | Kill, **unblockable** | Causes abrupt program termination. Cannot be blocked, ignored or handled. Always fatal. |
 15 | Terminate | Causes program termination. Can be bocked, ignored or handled. The polite way to ask a program to terminate. |
 20| Keyboard stop | Can be blocked, ignored or handled. Sent by typing **Ctrl-z** |
+
+## Load average
+The load average represents the perceived system load over a time period. Linux implements the load average calculation as a representation of expected service wait times, not only for CPU but also for disks and network I/O. Linux counts not only processes, but threads individually as separate tasks. The load number is a global counter calculation, which is sum-totaled for all CPUs. Linux counts each physical CPU core as a separate execution unit, logically represented and referred to as individual CPU. Check **/proc/cpuinfo** for the kernel representation of system CPUs.
