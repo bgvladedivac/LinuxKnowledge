@@ -3,6 +3,7 @@ The traditional SCSI hardware setup is a host adapter linked with a chain of dev
 
 *SATA* disks also appear on your system as SCSI devices by means of a translation layer in libata library used by the kernel. Some SATA controllers, especially RAID high-performance ones perform this translation in hardware.
 ```{r, engine='bash', count_lines}
+$ lsscsi
 [0:0:8:0]    disk    FUJITSU  MAM3184MP        0105  /dev/sda
 [2:0:0:0]    cd      CREATIVE CD5233E          1.00  /dev/scd0
 [3:0:5:0]    tape    HP       C5713A           H910  /dev/st0
@@ -26,8 +27,14 @@ The device node major and minor numbers can also be output with the '-d' option:
 $ lsscsi -d
 [0:0:1:0]    disk    FUJITSU  MAM3184MP        0105  /dev/sda[8:0]
 ```
+## Disks
+Most hard disks attached to current Linux systems correspond to device names with an *sd* prefix, such as */dev/sda*. These devices represent entire disks, the kernel makes seperate device files, such as */dev/sda1* for the partitions on a disk. The *sd* portion of the name stands for *SCSI disk*. SCSI was originally developed as hardware and protocol standard for communication between devices such as disks and other peripherals. Although traditional SCSI hardware is not used in most modern machines, the SCSI protocols is everywhere due to its adaptability. 
 
-
-
-
+## Rescanning your SCSI bus to see new storage
+To make the operating system aware of the new storage device, or path to an existing device, the recommended command to use is:
+```{r, engine='bash', count_lines}
+$ lsscsi -d
+$ echo "c t l" >  /sys/class/scsi_host/hosth/scan
+```
+In the command, h is the HBA number, c is the channel on the HBA, t is the SCSI target ID, and l is the LUN.
 
