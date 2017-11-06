@@ -1,6 +1,7 @@
 ## SCSI
-The traditional SCSI hardware setup is a host adapter linked with a chain of devices over an SCSI bus. 
-![alt text](https://www.google.bg/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiHlryHgKrXAhUJI-wKHWCVBwgQjRwIBw&url=%2Furl%3Fsa%3Di%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dimages%26cd%3D%26cad%3Drja%26uact%3D8%26ved%3D0ahUKEwiHlryHgKrXAhUJI-wKHWCVBwgQjRwIBw%26url%3Dhttp%253A%252F%252Fwww.yourdictionary.com%252Fscsi-chain%26psig%3DAOvVaw0pmmSLkJ-FhKjL-GZGLZHx%26ust%3D1510059475382576&psig=AOvVaw0pmmSLkJ-FhKjL-GZGLZHx&ust=1510059475382576)
+The traditional SCSI hardware setup is a host adapter linked with a chain of devices over an SCSI bus. The host adapter is attached to a computer. The host adapter and devices each have an SCSI ID, and there can be 8/16 per bus. The computer is not directly attached to the device chain, so it must go through the host adapter in order to communicate with disks and other devices.
+
+*SATA* disks also appear on your system as SCSI devices by means of a translation layer in libata library used by the kernel. Some SATA controllers, especially RAID high-performance ones perform this translation in hardware.
 
 
 
