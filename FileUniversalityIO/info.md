@@ -16,6 +16,12 @@ Abstraction in terms of **everything is a file** is imlemented by **Application 
 ## System calls and file descriptors
 **System call** is the fundamental interface between an application and the Linux kernel. System calls are how a program enters the kernel to perform some task. Programs use system calls to perform a variety of operations, such as creating processes, doing network and file I/O ... <br /> 
 
+The following are the four key system calls for performing I/O(programming languages and software packages typically employ these calls only indirectly, via I/O libaries). <br />
+* **fd = open(pathaneme, flags, mode)** opnes the file identified by pathname, returning a file descriptor used to refer to the open file in subsequent calls. The flags argument also specifies whether the file is to be opened for reading, writing, or both. The mode specifies the permissions to be placed on the file if it is created by this call.<br />
+* **numread = read(fd, buffer, count)** reads at most count bytes from the open file referred to by fd and stores them in buffer. The read() call returns the number of bytes actually read. <br />
+* **numwritten = write(fd, buffer, count)** writes up to count bytes from buffer to the open file referred to by fd. The write() call returns the number of bytes actually written, which may be less than count. <br />
+* **status = close(fd)** is called after all I/O has been completed, in order to release the file descriptor fd and its associated kernel resources. <br />
+
 System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls. Each process has 3 file descriptors already opened:<br />
 0 => standart input, 1 => standart ouput, 2 => standart error. 
 
