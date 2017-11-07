@@ -17,10 +17,16 @@ Linux provides a range of **journaling** file systems, including *Reiserfs, ext3
 The basic unit for allocating space in a file system is a *logical block*, which is some multiple of contiguous physical blocks on the disk device on which the file system resides. Example, the logical block size on *ext2* is 1024, 2048 or 4096 bytes. The logical block size is specified as an argument of the *mkfs* command used o build the file system. <br />
 
 A file system contains the following parts: <br />
-1. *Boot block* is the first block in a file system. The boot block is not used by the file system, rather it contains information used to boot the OS. Although only one boot block is needed by the OS, all file systems have a boot block(most of which are unused).<br />
-2. *Superblock* is a single block, which contains parameter information about the file system(the size of the i-node table, the size of the logical blocks in the file system, the size of the file system in logical blocks ...). <br />
-3. *I-node table*, each file/directory in the file system has a unique entry in the i-noe table. This entry records different information about the file. <br />
+1. **Boot block** is the first block in a file system. The boot block is not used by the file system, rather it contains information used to boot the OS. Although only one boot block is needed by the OS, all file systems have a boot block(most of which are unused).<br />
+2. **Superblock** is a single block, which contains parameter information about the file system(the size of the i-node table, the size of the logical blocks in the file system, the size of the file system in logical blocks ...). <br />
+3. **I-node table**, each file/directory in the file system has a unique entry in the i-noe table. This entry records different information about the file. <br />
 
+## I-nodes
+A file system's i-node table contains one i-node(short for index node) for each file residing in the file system. The i-node number of a file is the first field by the **ls -li** command. The informaion maintained in an i-node includes the following:<br />
+1. File type (regular file, symbolik link, character device, directory ...)<br />
+2. Owner<br />
+3. Group<br />
+4. Access permissions<br />
 
 
 
