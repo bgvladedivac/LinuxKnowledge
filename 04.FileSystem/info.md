@@ -31,7 +31,8 @@ A file system's i-node table contains one i-node(short for index node) for each 
 6. Number of hard links to the file. If the number is 1, once you delete the file, it can't be restored.<br />
 7. Number of blocks actually allocated to the file, measured in units of 512 bytes blocks.<br />
 
-
+## The Virtual File System(VFS)
+Each of the file systems differ in the details of their implementations. For example, the way in which the blocks of a file are allocated. If every program that worked with the files needed to understand the specific details of each file system, the task of writing programs that worked with all of the different file systems would be impossibble. The **VFS** is a kernel feature that resolves this problem by creating an abstraction layer for file-system operations. VFS defines an *interface* for file-system operations. All programs that work with files specify their operations in terms of this interface. Each file system provides an implementation for the VFS interface. Under this scheme, programs need to understand only the VFS interface and can ignore details of inidividual file-system implementations.
 
 
 
