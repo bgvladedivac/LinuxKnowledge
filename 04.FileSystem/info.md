@@ -34,7 +34,8 @@ A file system's i-node table contains one i-node(short for index node) for each 
 ## The Virtual File System(VFS)
 Each of the file systems differ in the details of their implementations. For example, the way in which the blocks of a file are allocated. If every program that worked with the files needed to understand the specific details of each file system, the task of writing programs that worked with all of the different file systems would be impossibble. The **VFS** is a kernel feature that resolves this problem by creating an abstraction layer for file-system operations. VFS defines an *interface* for file-system operations. All programs that work with files specify their operations in terms of this interface. Each file system provides an implementation for the VFS interface. Under this scheme, programs need to understand only the VFS interface and can ignore details of inidividual file-system implementations.
 
-
+## Journaling file systems
+The ext2 is an example of traditional UNIX file system which suffers from a classic limitation, after a system crash file-system consistency check(*fsck*) must be performed on reboot in order to ensure the integrity of the file system. The issue is that a consistency check requires examining the entire file system. On a large one, this may require several hours. Journaling file systems eliminate the need for lengthy file-system consistency checks after a system crash. A journaling file system logs(*journals*) all metadata updates to a specific file, before they are actually carried out. In the event of a system crash, the log can be used to rapidly redo any incomplete updates and bring the file system back to a consistent state.
 
 
 
