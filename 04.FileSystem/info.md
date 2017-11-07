@@ -55,3 +55,5 @@ The line contains six fields:<br />
 ## Unmounting a file system
 It is not possible to unmount a file system that is busy(there are open files on the file system or a process's current working direcotry is somewhere in the file system).
 
+## A virtual memory file system
+Linux also suports *virtual file systems* that reside in memory. To applications, they look like any other file system. However, one important difference is that file operations are much faster, since no disk access is involved.
