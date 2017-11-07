@@ -37,5 +37,21 @@ Each of the file systems differ in the details of their implementations. For exa
 ## Journaling file systems
 The ext2 is an example of traditional UNIX file system which suffers from a classic limitation, after a system crash file-system consistency check(*fsck*) must be performed on reboot in order to ensure the integrity of the file system. The issue is that a consistency check requires examining the entire file system. On a large one, this may require several hours. Journaling file systems eliminate the need for lengthy file-system consistency checks after a system crash. A journaling file system logs(*journals*) all metadata updates to a specific file, before they are actually carried out. In the event of a system crash, the log can be used to rapidly redo any incomplete updates and bring the file system back to a consistent state.
 
+## File system locations
+* A list of currently mounted file systems can be read from the Linux-specific */proc/mounts* virtual file. */proc/mounts* is an interface to kernel data structures, so it always contains accurate information about mounted file systems.<br />
+* The */etc/fstab* file maintained manually contains descriptions of all the available file systems and is used by *mount* and *fsck*.
+A line from the file:
+```{r, engine='bash', count_lines}
+/dev/sda1 /boot ext4 defaults 0 1
+```
+The line contains six fields:<br />
+1. The name of the mounted device. Be sure the name to be unique. If the device is LVM based, you are safety. For all other devices, except */dev/sda1* use their unique block id.<br />
+2. The mount point for the device.<br />
+3. The file system type.<br />
+4. Mount options.<br />
+5. A number used to control the operation of file system backups by *dump*. This field and the next one are used only in the */etc/fstab* file. 
+6. A number used to control the order in which *fsck* checks file systems at system boot time.
 
+## Unmounting a file system
+It is not possible to unmount a file system that is busy(there are open files on the file system or a process's current working direcotry is somewhere in the file system).
 
