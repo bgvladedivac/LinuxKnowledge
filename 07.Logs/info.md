@@ -19,17 +19,27 @@ Log file | Description |
 /var/log/boot.log | Messages related to system startup. |
  
 ## Syslog files
-Programs use the syslog protocol to log events to a system. Each log message is categorized by a facility and priority.
-Priority | Severity | 
---- | --- |
-emerg | System is unsusable | 
-alert | Action must be taken immediately. |
-crit | Critical condition. |
-For more information, check the man pafe of **rsyslog.conf**. |
+Programs use the syslog protocol to log events to a system. Each log message is categorized by a facility and priority. For example, the code 4 stands for priority *warning* and facility *warning condition*. For more information, check the man pafe of **rsyslog.conf**. The rsyslogd service uses the facility and priority of log messages to determine how to handle them. This is configured by the file **/etc/rsyslog.conf** and by ***. conf** files in **/etc/rsyslog.d**. 
+<br />
 
+The **#### RU LES ####** section of */etc/rsyslog.conf* contains directives that define where log messages are saved. The left side of each line indicates the facility and severity of the log message the directive matches. The rsyslog.conf file can contain the character * as a wild ca rd in the facility and severity field, where it either stands for all facilities or all severities. The right
+side of each line indicates what file to save the log message in. 
 
 
 ```{r, engine='bash', count_lines}
-echo N > /sys/class/backlight/acpi_video0/brightness
+#### RULES ####
+# Log all kernel messages to the console.
+# Logging much else clutters up the screen .
+#kern . *
+# Log anything (except mail) of level info or higher .
+# Don 't log private authentication messages !
+/dev/console
+* . info;mail. none; authpriv. none; cron . none /var/log/messages
+# The authpriv file has restricted access .
+authpriv. *
+# Log all the mail messages in one place .
+mail. *
+# Log cron stuff
+cron . *
 
 ```
