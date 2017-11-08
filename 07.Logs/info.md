@@ -25,7 +25,7 @@ Priority | Severity |
 emerg | System is unsusable | 
 alert | Action must be taken immediately. |
 crit | Critical condition. |
-For more information, check the man pafe of **rsyslog.conf**.
+For more information, check the man pafe of **rsyslog.conf**. |
 
 
 
