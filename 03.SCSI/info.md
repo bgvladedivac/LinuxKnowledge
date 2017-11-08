@@ -1,51 +1,40 @@
-When a program reads or writes data from a file, the requests go to a kernel driver. If the file is a regular file, the data is handled by a filesystem driver. When data is read or written to a device file, the request is handled by the driver for that device. Each device file has an associated number(**major nuber**) which identifies the driver to use, i.e the SCSI driver number is 8. The **minor number** shows the instance of this device, as the counting start from index 0.  
+## SCSI
+The traditional SCSI hardware setup is a host adapter linked with a chain of devices over an SCSI bus. The host adapter is attached to a computer. The host adapter and devices each have an SCSI ID, and there can be 8/16 per bus. The computer is not directly attached to the device chain, so it must go through the host adapter in order to communicate with disks and other devices.
+
+*SATA* disks also appear on your system as SCSI devices by means of a translation layer in libata library used by the kernel. Some SATA controllers, especially RAID high-performance ones perform this translation in hardware.
 ```{r, engine='bash', count_lines}
-[root@client devil]# ls -l /dev/sda
-brw-rw----. 1 root disk 8, 0 Nov  1 10:35 /dev/sda
+$ lsscsi
+[0:0:8:0]    disk    FUJITSU  MAM3184MP        0105  /dev/sda
+[2:0:0:0]    cd      CREATIVE CD5233E          1.00  /dev/scd0
+[3:0:5:0]    tape    HP       C5713A           H910  /dev/st0
+[3:0:5:1]    mediumx HP       C5713A           H910  -
+[4:0:0:0]    disk    Linux    scsi_debug       0004  /dev/sdb
 ```
 
-## Device special files/API
-A device special file corresponds to a device on the system. Within the kernel, each device type has a corresponding device driver(a unit of kernel code), which handles all I/O requests for the device.  The API provided by device drivers is fixed,  to the system calls **open()**, **close()**, **read()**, **write()**, **mmap()**, and **ioctl()**.
+The first entry on each line is the SCSI host adapter, SCSI bus number, SCSI ID and the LUN(logical unit number, a further subdivision a device). When there are multiple SCSI devices their entries are sorted in ascending tuple order. The next column is the SCSI peripheral type. Then follows the vendor name, the model name and the revision string. The last entry is the primary device node name. The "primary" device node name is associated with the upper level SCSI driver that "owns" the device. Examples of upper level SCSI drivers are sd (for disks), sr (for optical drives whose devices are often named /dev/scd<n> ) and st (for tapes). Some SCSI devices have peripheral types that either don't have upper level drivers to control them, or the associated driver module is not loaded. Such devices have '-' given for their device node name. All SCSI devices can be accessed via their corresponding scsi generic (sg) device node name (e.g. /dev/sg<n> ) which can be seen by adding a '--generic' option to the above lsscsi invocation.
 
-The model that each device driver provides a consistent interface, hiding the differences in operation of individual devices, allows for universality of I/O.
-
-## Main distinguishment Character vs. block devices
-
-## Character devices
-Those for which no buffering is performed. They handle data on a character-by-character basis. Terminals and keyboards are exampples of character devices. **Character devices** behave like pipes, serial ports, etc. Writing or reading to them is an immediate action. What the driver does with the data is its own business. Writing a byte to a character device might cause it to be displayed on screen, output on a serial port, converted into a sound... Reading a byte from a device might cause the serial port to wait for input, might return a random byte (/dev/urandom), ... The name “character device” comes from the fact that each character is handled individually.
-
-**Character devices** are read from and written to with two function: foo_read() and foo_write().
+By adding the '--size' option ('-s' in its short form) the size of disks is shown to the right of each line:
 
 ```{r, engine='bash', count_lines}
-[devil@client ~]$ ls -l /dev/tty0
-crw--w----. 1 root tty 4, 0 Nov  1 10:35 /dev/tty0
+# lsscsi -s 
+[0:0:0:0]    cd/dvd  PIONEER  DVD-RW  DVR-212D 1.22  /dev/sr0        - 
+[1:0:0:0]    disk    ATA      ST3320620AS      3.AA  /dev/sda    320GB 
+[6:0:0:0]    disk    SEAGATE  ST32000444SS     0006  /dev/sdb   2.00TB 
 ```
 
-## Block devices
-**Block devices** handle data a block at a time. The size of a block depeneds on the type of device, but is typically some multiple of 512 bytes. Examples of block devices include disks, partitions and virtual-block devices(created by LVM). **Filesystems can only be mounted if they are on block device.** . **Block devices** usually behave a lot like ordinary files: they are an array of bytes, and the value that is read at a given location is the value that was last written there. Data from block device can be cached in memory and read back from cache; writes can be buffered. **Block devices** are normally seekable (i.e. there is a notion of position inside the file which the application can change). The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time (e.g. a sector on a hard disk).**Block devices** have a function which has historically been called the strategy routine.'' Reads and writes are done through the buffer cache mechanism by the generic functions bread(), breada(), and bwrite(). A request may be asyncronous: breada() can request the strategy routine to schedule reads that have not been asked for, and to do it asyncronously, in the background, in the hopes that they will be needed later.
-
+The device node major and minor numbers can also be output with the '-d' option:
 ```{r, engine='bash', count_lines}
-[root@client devil]# ls -l /dev/sda
-brw-rw----. 1 root disk 8, 0 Nov  1 10:35 /dev/sda
-[root@client devil]# ls -l /dev/sda1
-brw-rw----. 1 root disk 8, 1 Nov  1 10:35 /dev/sda1
-[root@client devil]# ls -l /dev/mapper/centos-
-centos-root  centos-swap  
-[root@client devil]# ls -l /dev/mapper/centos-root 
-lrwxrwxrwx. 1 root root 7 Nov  1 10:35 /dev/mapper/centos-root -> ../dm-0
-[root@client devil]# ls -l /dev/dm-0
-brw-rw----. 1 root disk 253, 0 Nov  1 10:35 /dev/dm-0
+$ lsscsi -d
+[0:0:1:0]    disk    FUJITSU  MAM3184MP        0105  /dev/sda[8:0]
 ```
+## Disks
+Most hard disks attached to current Linux systems correspond to device names with an *sd* prefix, such as */dev/sda*. These devices represent entire disks, the kernel makes seperate device files, such as */dev/sda1* for the partitions on a disk. The *sd* portion of the name stands for *SCSI disk*. SCSI was originally developed as hardware and protocol standard for communication between devices such as disks and other peripherals. Although traditional SCSI hardware is not used in most modern machines, the SCSI protocols is everywhere due to its adaptability. 
 
-## Udev
-Udev is the device manager that creates/removes device nodes in the /dev directory dynamically. Runs in userspace and the user can change device names using **udev rules**. There is a special section for udev.
-
-
-
-
-
-
-
-
-
+## Rescanning your SCSI bus to see new storage
+To make the operating system aware of the new storage device, or path to an existing device, the recommended command to use is:
+```{r, engine='bash', count_lines}
+$ lsscsi -d
+$ echo "c t l" >  /sys/class/scsi_host/hosth/scan
+```
+In the command, h is the HBA number, c is the channel on the HBA, t is the SCSI target ID, and l is the LUN.
 
