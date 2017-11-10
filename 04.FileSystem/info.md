@@ -46,14 +46,28 @@ A line from the file:
 ```
 The line contains six fields:<br />
 1. The name of the mounted device. Be sure the name to be unique. If the device is LVM based, you are safety. For all other devices, except */dev/sda1* use their unique block id.<br />
-2. The mount point for the device.<br />
+2. The mount point for the device. <br />
 3. The file system type.<br />
 4. Mount options.<br />
 5. A number used to control the operation of file system backups by *dump*. This field and the next one are used only in the */etc/fstab* file. 
 6. A number used to control the order in which *fsck* checks file systems at system boot time.
 
 ## Unmounting a file system
-It is not possible to unmount a file system that is busy(there are open files on the file system or a process's current working direcotry is somewhere in the file system).
+It is not possible to unmount a file system that is busy(there are open files on the file system or a process's current working direcotry is somewhere in the file system). The **lsof** lists all open files and the process accessing them in the provided directory.
 
 ## A virtual memory file system
 Linux also suports *virtual file systems* that reside in memory. To applications, they look like any other file system. However, one important difference is that file operations are much faster, since no disk access is involved.
+
+## Examining file systems
+To get an overview about the file system mount points and the amount of free space available, run **df**. To improve readability of the output sizes, there are two different *human-readable* options *-h* and *-H*. <br />
+
+-h will report in decimal value system(KiB, MiB, GiB), while -H will report in decimal(LB, MB, GB).
+
+```{r, engine='bash', count_lines}
+[vieri@localhost ~]& df -h
+Filesystem Size Used Avail Use% Mounted on
+/dev/vda1 6.0G 3.9G 2.2G 65% I
+devtmpfs 929M 0 929M 0% /dev
+tmpfs 937M 80K 937M 1% /dev/shm
+```
+For more detailed information about the space used by a certain directory tree, there is the **du** command.
