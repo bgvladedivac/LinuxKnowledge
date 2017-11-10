@@ -22,7 +22,7 @@ Log file | Description |
 Programs use the syslog protocol to log events to a system. Each log message is categorized by a facility and priority. For example, the code 4 stands for priority *warning* and facility *warning condition*. For more information, check the man pafe of **rsyslog.conf**. The rsyslogd service uses the facility and priority of log messages to determine how to handle them. This is configured by the file **/etc/rsyslog.conf** and by ***. conf** files in **/etc/rsyslog.d**. 
 <br />
 
-The **#### RU LES ####** section of */etc/rsyslog.conf* contains directives that define where log messages are saved. The left side of each line indicates the facility and severity of the log message the directive matches. The rsyslog.conf file can contain the character * as a wild ca rd in the facility and severity field, where it either stands for all facilities or all severities. The right
+The **#### RULES ####** section of */etc/rsyslog.conf* contains directives that define where log messages are saved. The left side of each line indicates the facility and severity of the log message the directive matches. The rsyslog.conf file can contain the character * as a wild ca rd in the facility and severity field, where it either stands for all facilities or all severities. The right
 side of each line indicates what file to save the log message in. 
 
 
@@ -42,4 +42,20 @@ mail. *
 # Log cron stuff
 cron . *
 
+```
+
+## Log file rotation
+Logs are rotated by the **logrotate** utility to keep them from filling up the file system containing **/var/log**. When a log file is rotated, it is renamed with an extension indicating the date on which it was rotated:**/var/log/messages8** may become **/var/log/messages-2016-0330**. After a certain number of rotatins, typically after four weeks, the old log file is discarded to free disk space. A cron job runs the logrotate progra daily to see if any logs need to be rotated.
+
+## Monitoring logs with tail
+The **tail -f /path_to_file** ouputs the last 10 lines of the file and continues to output new lines as they get written to the monitored file. 
+
+## Finding events with journalctl
+The *journalctl* shows the full system journal, starting with the oldest entry.
+```{r, engine='bash', count_lines}
+[root@serverx -)# journalctl
+Feb 14 10: 01:01 server1 run-parts(/etc/cron . hourly} [8678] : starting 0yum-hourly.cron
+Feb 14 10: 01:01 server1 run-parts(/etc/cron . hourly} [8682] : finished 0yum-hourly.cron
+Feb 14 10:10:01 server1 systemd[1] : Starting Session 725 of user root .
+Feb 14 10: 10:01 server1 systemd[1) : Started Session 725 of user root .
 ```
