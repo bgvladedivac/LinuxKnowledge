@@ -9,3 +9,17 @@
 • **Volume groups (VG)** are storage pools made up of one or more physical volumes. A PV can only be allocated to a single VG. A VG can consist of unused space and any number of logical volumes.
 
 • **Logical volumes (LV)** are created from free physical extents in a volume group and provide the "storage" device used by applications, users, and the operating system. LVs are a collection of logical extents (LE), which map to physical extents, the smallest storage chunk of a PV. By default, each LE will map to one PE. Setting specific LV options will change this mapping.
+
+## Normal workflow for creating Logical volume
+```{r, engine='bash', count_lines}
+[ root@server -]# pvcreate /dev/sdb /dev/sdc
+[ root@server -]# vgcreate alpha /dev/sdb /dev/sdc 
+[ root@server -]# lvcreate -n hercules -L 2G alpha 
+[ root@server -]# mkfs -t xfs /dev/alpha/hercules 
+
+[root@serverx -]# mkdir /mnt/hercules
+• Add an entry to the /etc/fs t ab file:
+
+/dev/alpha/hercules /mnt/hercules xfs defaults 1 2
+[ root@servex -]# mount -a 
+```
