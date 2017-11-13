@@ -23,3 +23,10 @@
 /dev/alpha/hercules /mnt/hercules xfs defaults 1 2
 [ root@servex -]# mount -a 
 ```
+
+## Reviewing LVM status information 
+```{r, engine='bash', count_lines}
+[ root@server -]# pvdisplay | pvs
+[ root@server -]# vgdisplay | vgs
+[ root@server -]# lvdisplay | lvs
+```
