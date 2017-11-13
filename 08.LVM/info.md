@@ -1,4 +1,6 @@
-## LVM
+## LVM(Logical Volumen Manager)
+LVM gives you the main benefit ot controlling your storage in a more flexible way. It also supports snapshots and mooving around physical volumes with the *pvmove* command. The foundation of LVM is the device mapper for mapping physical block devices onto higher-level virtual block devices. Once you end up with **logical volumes** you could allocate file systems on them and resize them if necessary. 
+
 **Logical volumes** and logical volume management make it easier to manage disk space. If a LVM hosted file system needs more space, it can be allocated to its logical volume from the free space in its **volume group** and the file system can be resized. If a disk starts to fail, a replacement disk can be registered as a physical volume with the volume group and the logical volume's extents can be migrated to the new disk.
 
 ## LVM Definitions
