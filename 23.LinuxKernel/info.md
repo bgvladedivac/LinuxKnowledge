@@ -1,5 +1,5 @@
 ## Kernel modules
-Kernel modules are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system. Modules are stored in */usr/lib/modules/kernel_release*. You can use the command *uname -r* to get your current kernel release version. To show what kernel modules are currently loaded:
+Kernel modules/Dynamically loadable kernel modules are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system. Modules are stored in */usr/lib/modules/kernel_release*. You can use the command *uname -r* to get your current kernel release version. To show what kernel modules are currently loaded:
 
 ```{r, engine='bash', count_lines}
 [root@localhost 3.10.0-693.el7.x86_64]# lsmod | more
