@@ -8,8 +8,8 @@ Building a virtual host requires the qemu-kvm and qemu-img packages at minimum, 
 [root@serverX -]# yum install qemu-kvm qemu-img
 ```
 Additional virtualization management packages are also recommended:<br />
-• python-virtinst-Provides the virt-install command for creating virtual machines.<br />
-• libvirt-Provides the host and server libraries for interacting with hypervisors and host systems.<br />
-• libvirt-python-Contains a module to permit Python applications to use the libvirt API.<br />
-• virt-manager- Provides the Virtual Machine Manager graphical tool for administering VMs, using the libvirt-client library as the management API.<br />
-• libvirt-client-Provides the client APls and libraries for accessing libvirt servers, including the virsh command-line tool to manage and control VMs.
+• *python-virtinst* - provides the virt-install command for creating virtual machines.<br />
+• *libvirt* - provides the host and server libraries for interacting with hypervisors and host systems.<br />
+• *libvirt-python* - contains a module to permit Python applications to use the libvirt API.<br />
+• *virt-manager* - provides the Virtual Machine Manager graphical tool for administering VMs, using the libvirt-client library as the management API.<br />
+• *libvirt-client* - provides the client APls and libraries for accessing libvirt servers, including the virsh command-line tool to manage and control VMs.
