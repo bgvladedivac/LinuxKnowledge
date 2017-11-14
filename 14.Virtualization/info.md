@@ -17,9 +17,10 @@ Additional virtualization management packages are also recommended:<br />
 ## Controlling virtual machines
 The libvirt package is a hypervisor-independent virtualization API to securely control virtual machines by providing the ability to provision, create, modify, monitor ... virtual machines on a single host. The libvirt package provides APls to enumerate, monitor,
 and use the resources available on the managed host, including CPUs, memory, storage, and networking. The fundamentals tools included: <br />
-*virsh* - the virsh command-line tool is an alternative to the graphical virt-manager application. The virsh command is ideal for scripting virtualization administration. <br />
 
-*virt-manager* - virt-manager is a graphical desktop tool allowing access to guest consoles and is used to perform virtual machine creation, migration, configuration, and administrative tasks. Both local and remote hypervisors can be managed through a single interface.
+*virsh* - an alternative to the graphical virt-manager application. The virsh command is ideal for scripting virtualization administration. <br />
+
+*virt-manager* - a graphical desktop tool allowing access to guest consoles and is used to perform virtual machine creation, migration, configuration, and administrative tasks. Both local and remote hypervisors can be managed through a single interface.
 
 The virsh command-line tool provides the same functionality as virtual manager.
 ```{r, engine='bash', count_lines}
