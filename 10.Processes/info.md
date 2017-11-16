@@ -88,3 +88,8 @@ Signal number | Definition  |  Purpose |
 
 ## Load average
 The load average represents the perceived system load over a time period. Linux implements the load average calculation as a representation of expected service wait times, not only for CPU but also for disks and network I/O. Linux counts not only processes, but threads individually as separate tasks. The load number is a global counter calculation, which is sum-totaled for all CPUs. Linux counts each physical CPU core as a separate execution unit, logically represented and referred to as individual CPU. Check **/proc/cpuinfo** for the kernel representation of system CPUs.
+
+
+## Summary
+During the lifetime of a process it will use many system resources. It will use the CPUs in the system to run its instructions and the system's physical memory to hold it and its data. It will open and use files within the filesystems and may directly or indirectly use the physical devices in the system. Linux must keep track of the process itself and of the system resources that it has so that it can manage it and the other processes in the system fairly. The scheduler looks through the processes on the run queue looking for the most deserving process to run
+
