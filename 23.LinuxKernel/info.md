@@ -4,6 +4,11 @@ It's responsible for enabling multiple applications to effectively share the har
 ## Location
 The kernel file is stored in your /boot folder and is called *vmlinuz-version*. 
 
+## Initial ramdisk
+*initrd* (initial ramdisk) is a scheme for loading a temporary root file system into memory, which may be used as part of the Linux startup process. initrd and *initramfs* refer to two different methods of achieving this. Both are commonly used to make preparations before the real root file system can be mounted.
+
+Many Linux distributions ship a single, generer Linux kernel image. The device drivers for this generic kernel image are included as *loadable kernel modules*, because statically compiling many drivers into one kernel causes the kernel image to be much larger, perhaps too large on computers with limited memory. This then raises the problem of detecting and loading the modules necessary to mount the root file system at boot time(which can be allocated on RAID, NFS, encryted partition ...) . To avoid handling so many special cases into the kernel, an initial boot stage with a temporary root file-system is used. This root file-system can contain user-space helpers which do the hardware detection, module loading and device discovery necessary to get the real root file-system mounted.
+
 ## Kernel modules
 Kernel modules/Dynamically loadable kernel modules are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system. Modules are stored in */usr/lib/modules/kernel_release*. You can use the command *uname -r* to get your current kernel release version. To show what kernel modules are currently loaded:
 
