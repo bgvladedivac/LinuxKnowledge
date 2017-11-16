@@ -1,61 +1,12 @@
-## Everything is a file
-An often saying of Unix-like OS is that everything is a file. Imagine a file in the context of a word processor. There are two fundamental operations u could do: <br />
-1. Read it <br />
-2. Write to it <br />
+An operating system has to work closely with the hardware system that acts as its foundations. The operating system needs certain services that can only be provided by the hardware.
 
-Consider some of the commont things attached to a computer and how they relate to out fundamental file operations: <br />
-1. The screen is read/write. <br />
-2. The printer is write only. <br />
-3. The CD-ROM is read/write. <br />
+## The CPU ( Central Processing Unit )
+The CPU or the microprocessor is the heart of any computer system. The microprocessor calculates, performs logical operations and *manages data flows by reading instructions from memory and then executing them*. In the early days of computing the functional components of the microprocessor were separate (and physically large) units. This is when the term Central Processing Unit was coined. The modern microprocessor combines these components onto an integrated circuit etched onto a very small piece of silicon. The terms CPU, microprocessor and processor are all used interchangeably.
 
-The concept of a file is a good abstraction of either a sink for, or source of data. Its a great abstaction of all the devices one might attach to the computer. It is one of the fundamental roles of the OS to provide this abstraction of the hardware to the programmer.
+Microprocessors operate on binary data, which is composed of ones and zeros. Microprocessors can perform arithmetic operations such as add, multiply and divide and logical operations such as  *is A greater than B?*. The processor's execution is governed by an external clock. It generates regular clock pulses to the processor and at each clock pulse the processor does some work. A processor's speed is described in terms of the rate of the system clock ticks. A 100Mhz processor will receive 100,000,000 clock ticks every second. 
 
-## Impelementing abstraction
-Abstraction in terms of **everything is a file** is imlemented by **Application Programming Interface**(API). A programmer designs a set of functions and documents their **interface** (with which arguements they are called, the return value that they have, we do not care about the inner implementation of the function, but what it wants as arguments and the result that it brings back). From there on, the API could be provided to any external programmer/side to use it in their application.
+A **processor register** is a quickly accessible location available to a computer's central processing unit (CPU). Registers usually consist of a small amount of fast storage. The **Program Counter (PC)** register contains the address of the next instruction to be executed. 
 
-## System calls and file descriptors
-**System call** is the fundamental interface between an application and the Linux kernel. System calls are how a program enters the kernel to perform some task. Programs use system calls to perform a variety of operations, such as creating processes, doing network and file I/O ... <br /> 
-
-The following are the four key system calls for performing I/O(programming languages and software packages typically employ these calls only indirectly, via I/O libaries). <br />
-* **fd = open(pathaneme, flags, mode)** opnes the file identified by pathname, returning a file descriptor used to refer to the open file in subsequent calls. The flags argument also specifies whether the file is to be opened for reading, writing, or both. The mode specifies the permissions to be placed on the file if it is created by this call.<br />
-* **numread = read(fd, buffer, count)** reads at most count bytes from the open file referred to by fd and stores them in buffer. The read() call returns the number of bytes actually read. <br />
-* **numwritten = write(fd, buffer, count)** writes up to count bytes from buffer to the open file referred to by fd. The write() call returns the number of bytes actually written, which may be less than count. <br />
-* **status = close(fd)** is called after all I/O has been completed, in order to release the file descriptor fd and its associated kernel resources. <br />
-
-System calls are generally not invoked directly, but rather via wrapper functions in glibc. Each system call returns a **file descriptor**, a small, nonnegative interger for use in subsequent system calls. Each process has 3 file descriptors already opened:<br />
-0 => standart input, 1 => standart ouput, 2 => standart error. 
-
-
-```c
-The following code, opens tfile twice, write once and read once via two different file descriptors.
-
-#include < string.h >
-#include < unistd.h >
-#include < fcntl.h >
-
-int main (void)
-{
-    int fd[2];
-    char buf1[12] = "just a test";
-    char buf2[12];
-
-    fd[0] = open("tfile",O_RDWR);
-    fd[1] = open("tfile",O_RDWR);
-    
-    write(fd[0],buf1,strlen(buf1));
-    write(1, buf2, read(fd[1],buf2,12));
-
-    close(fd[0]);
-    close(fd[1]);
-
-    return 0;
-}
-The output is then:
-
-UNIX> a.out
-just a testUNIX> 
-
-``` 
-
-
-The same system calls(**open()**, **read()**, **write()**, **close()** ... ) are used to perform I/O on all types of files, including devices. 
+## Controllers and Peripherals
+Peripherals are real devices, such as graphics cards or disks controlled by controller chips on the system board or on cards plugged into it. The SCSI disks are controlled by the SCSI disk controller chips and so on. These controllers are connected to the CPU and to each other by a variety of buses. Most systems built now use PCI buses to connect together the main system components. The controllers are processors like the CPU itself, they can be viewed as intelligent helpers to the CPU. The CPU is in overall control of the system.
+ 
