@@ -66,9 +66,28 @@ This directive sets the directory from which httpd will serve files.
 User apache
 Group apache
 ```
-These two directives specify the user and group the httpd daemon should run as. 
 
-A *<Directory>* block sets configuration directives for the specified directory, and all descendent directories. Common directives inside a <Directory> block include the following:<br />
+For more information, you could check the Apache starting guide https://httpd.apache.org/docs/2.4/getting-started.html.
 
-**Require All Denied**: httpd will refuse to serve content out of this directory, returning a HTTP /1.1 403 Forbidden error when requested by a client. <br />
-**Require All Granted**: allow access to this directory. 
+## Virtual hosts
+Virtual hosts allow a single httpd server to serve content for multiple domains. Based on either the IP address of the server that was connected to, the hostname requested by the client in the http request or a combination of both, httpd can use different configuration settings, including a different Document Root.
+
+Virtual hosts are typically used when it is not cost-effective to spin up multiple machines to serve out many low-traffic sites, for example, in a shared hosting environment.
+
+```{r, engine='bash', count_lines}
+<Directory /srv/site1/www>
+Require all granted
+// Provides access to the DocumentRoot further down.
+Allowoverride None
+</Directory>
+
+<VirtualHost 192.168.0.1:80>
+DocumentRoot /srv/site1/www
+ServerName site.example.com
+ServerAdmin beenthere@example.com
+ErrorLog "logs/site1_error_log"
+customLog "logs/site1_acces s_log "
+</VirtualHost>
+```
+
+The virtual hosts could be name/ip referenced.
