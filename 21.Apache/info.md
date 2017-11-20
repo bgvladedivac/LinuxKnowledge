@@ -49,3 +49,13 @@ This ServerRoot will specify where httpd will look for any files referenced in t
 Listen 80
 ```
 This directive tells httpd to start listening on port 80/TCP on all interfaces.  
+
+
+```{r, engine='bash', count_lines}
+[root@localhost bluetooth]# grep -i include /etc/httpd/conf/httpd.conf
+Include conf.modules.d/*.conf
+IncludeOptional conf.d/*.conf
+
+[root@localhost bluetooth]# grep -i documentroot /etc/httpd/conf/httpd.conf
+DocumentRoot "/var/www/html"
+```
