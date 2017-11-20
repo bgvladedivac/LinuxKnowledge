@@ -46,6 +46,8 @@ sig_hashalgo:   sha256
 ```
 To display the comprehensive configuration of all the modules *$ modprobe -c | less*, to display the configuration of a particular module *modeprobe -c | grep module_name*. List the dependencies of a module *modprobe -c | grep mod_name*.
 
+A standard directory in Linux where driver files are stored is */lib/modules/$Kernel_version/kernel/drivers/*.  Most files are *XZ compressed data* ending in *.ko* extensions. 
+
 ## Kernel Data Structures
 
 The operating system must keep a lot of information about the current state of the system. As things happen within the system these data structures must be changed to reflect the current reality. For example, a new process might be created when a user logs onto the system. The kernel must create a data structure representing the new process and link it with the data structures representing all of the other processes in the system.
