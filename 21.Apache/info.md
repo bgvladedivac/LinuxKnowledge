@@ -59,3 +59,11 @@ IncludeOptional conf.d/*.conf
 [root@localhost bluetooth]# grep -i documentroot /etc/httpd/conf/httpd.conf
 DocumentRoot "/var/www/html"
 ```
+This directive sets the directory from which httpd will serve files.
+
+```{r, engine='bash', count_lines}
+[root@localhost bluetooth]# grep -i apache /etc/httpd/conf/httpd.conf
+User apache
+Group apache
+```
+These two directives specify the user and group the httpd daemon should run as. 
