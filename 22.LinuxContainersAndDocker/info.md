@@ -17,3 +17,7 @@ The kernel provides container isolation thorugh namespaces, which create a new e
 5. **UTS** targets the host names. A container can have a different host name and domain name than the containers and host system.
 
 ## Control groups
+Control groups are used by the kernel to manage system resources. Cgroups allow adjustable allocation of CPU time, memory and I/O bandwidth among processes and groups of processes. Containers use *cgroups* to manage resource consumption, so that a container will get a certain share of system resources but not steal all system resources.
+
+## SELinux
+In order to protect the host and other containers from a compromised container, *SELinux* is used. With SELinux *enforcing*, container processes can only write to container files. Container processes run as the type *svirt_lxc_net_t*, and image files are labeled with the type *svirt sandbox_file t*. 
