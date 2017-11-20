@@ -21,3 +21,31 @@ Control groups are used by the kernel to manage system resources. Cgroups allow 
 
 ## SELinux
 In order to protect the host and other containers from a compromised container, *SELinux* is used. With SELinux *enforcing*, container processes can only write to container files. Container processes run as the type *svirt_lxc_net_t*, and image files are labeled with the type *svirt sandbox_file t*. 
+
+## Docker
+Docker provides the user interface, API, image format and other tools used to manage Linux containers. Docker runs a daemon started by the systemd unit *docker.service* to manage containers. The user interacts with this daemon through the docker command. Images are stored in a local index kept in the */var/lib/docker* directory, but are loaded and exported with the docker command. 
+
+**A Docker image** is a static snapshot of a container's configuration, which is used to launch a container. The image is a read-only layer that is never modified. Instead, Docker adds a readwrite overlay to which all changes are made. Changes are saved by creating a new image. A single image can be used to generate many containers that are very slightly different, but only need enough disk space to store a very small amount of differences.
+
+## Containers and virtualization
+Containers and virtualization are two technologies that provide different ways of dividing up system resources. Containers can be run on virtual machines and in cloud computing environments, combining both technologies. There are use cases more suited for one technology or the other. 
+
+Some advantages of **Docker** containers: 
+
+1. Containers are *lightweight* in resource use, so more containers can be run on the same hardware. 
+
+2. Containers can be *created and destroyed more quickly* than virtual machines.
+
+3. Unlike virtual machines, containers do not need to support an entire operating system only a core runtime is needed for the application. This allows rapid application deployment.
+
+4. Docker images have a version control stream, so successive versions of an image can be tracked and even reverted. Components reuse components from other layers, making container images very lightweight. 
+
+5. Docker images are easily transferable to other machines which have Docker available.
+
+Some advantages of **virtualization**: 
+
+1. Virtual machines run their own kernel and full operating system, which allows stronger isolation between the host hypervisor and the virtual machine. 
+
+2. Virtual machines can easily run operating systems and kernels that are completely different than the hypervisor host's operating system. 
+
+3. Virtual machines can be live-migrated from one hypervisor node to another while running, containers must be stopped before being moved from one machine to another.
