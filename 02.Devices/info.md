@@ -36,6 +36,8 @@ lrwxrwxrwx. 1 root root 7 Nov  1 10:35 /dev/mapper/centos-root -> ../dm-0
 [root@client devil]# ls -l /dev/dm-0
 brw-rw----. 1 root disk 253, 0 Nov  1 10:35 /dev/dm-0
 ```
+## Loop back device
+Loop device is a pseudo ("fake") device (actually just a file) that acts as a block-based device.  
 
 ## Udev
 Udev is the device manager that creates/removes device nodes in the /dev directory dynamically. Runs in userspace and the user can change device names using **udev rules**. There is a special section for udev.
