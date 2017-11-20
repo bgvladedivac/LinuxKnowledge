@@ -67,3 +67,8 @@ User apache
 Group apache
 ```
 These two directives specify the user and group the httpd daemon should run as. 
+
+A *<Directory>* block sets configuration directives for the specified directory, and all descendent directories. Common directives inside a <Directory> block include the following:<br />
+
+**Require All Denied**: httpd will refuse to serve content out of this directory, returning a HTTP /1.1 403 Forbidden error when requested by a client. <br />
+**Require All Granted**: allow access to this directory. 
