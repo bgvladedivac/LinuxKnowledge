@@ -5,6 +5,25 @@ DNS records are organized in zones as each zone matches either a domain/subdomai
 
 The DNS delegates the responsibility of assigning domain names and mapping those names to Internet resources by designating authoritative name servers for each domain. DNS consists of a tree data structure. Each node or leaf in the tree has a label and zero or more **resource records (RR)**, which hold information associated with the domain name.
 
+The DNS hierarchy begins with the *root* domain '.' at the top and branches downward to multiple next-level domains. Domains such as **com**, **net**, **org** ... occupy the second level of the hierarchy and domains such as **example.com** occupy the third level and so on ...
+
+## Domain/Zone
+A domain is a collection of resource records that ends in a common name and represents an entire subtree of the DNS name space.
+
+A zone is the partoin of a domain for which a particular nameserver is responsbile/authoritative. This may be an entire domain or just part of a domain.
+
+## Workflow of a DNS lookup
+When a node wants to perform name resolution using a DNS server, it begins by sending queries to the servers listed in **/etc/resolv.conf** in order, until it gets a response or runs out of servers. The **host** and **dig** commands can be used for assistance.
+
+When the query arrives at a DNS server, the server first determines whether the information being queried resides in a zone that is responsible for. If the server is an authority for the zone that the name or address being queried belongs ti, then the server responds to the client with the informatoin contained in its local zone file. This responce is referred to as an **authoritative answer**(aa). Such answers have the **aa** flag turned on in the header of the DNS response.
+
+If the DNS server is not an authority for the record in question, but has recently got the record to answer a previous query, it may still have a copy of the record in its cache. The cache is where answers to queries are stored for a specified time, determined by a value contained in every resource record response called the **Time To Live** (TTL). If an answer exists in the server's cache, it is provided to the client. This answer will not have the aa flag set, since the server is not authoritative for the data being provided
+
+If the DNS server is not authoritative for the name being queried and it does not possess the record in its cache, it will then attempt to retrieve the record via an iterative process known as recursion. A DNS server with an empty cache begins the recursion process by querying one of the root nameservers by IP address retrieved from its local, pre-populated root hints file. The root nameserver will then likely respond with a referral, which indicates the nameservers that are authoritative for the TLD that contains the name being queried. 
+Upon receiving the referral, the DNS server will then perform another iterative query to the TLD authoritative nameserver it was referred to. Depending on whether there are further remaining delegations in the name being queried, this authoritative nameserver will either send an authoritative answer or yet another referral. This continues until an authoritative server is reached and responds with an authoritative answer. 
+
+The final answer along with all the intermediate answers obtained prior to it, are cached by the DNS server to improve performance. If during a lookup for www.example.com the DNS server finds out that the example.com zone has authoritative nameservers, it will query those servers directly for any future queries for information in the example.com zone, rather than starting recursion again at the root nameservers. 
+
 
 ## Resource records
 **SOA**: specifies authoritative information about a DNS zone, including the primary name server, the email of the domain administrator, the domain serial number, and several timers relating to refreshing the zone.
