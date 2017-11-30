@@ -13,6 +13,12 @@ A domain is a collection of resource records that ends in a common name and repr
 A zone is the partoin of a domain for which a particular nameserver is responsbile/authoritative. This may be an entire domain or just part of a domain.
 
 ## Resource records
+A resource record contains a type, a TTL, a class, and data elements organized in the following format
+```{r, engine='bash', count_lines}
+owner-name       TTL    class     TYPE         data
+www.example.com. 300    IN         A          192.168.0.2
+```
+
 **SOA**: specifies authoritative information about a DNS zone, including the primary name server, the email of the domain administrator, the domain serial number, and several timers relating to refreshing the zone.
 
 **A**: IPv4 address.
