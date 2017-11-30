@@ -6,14 +6,14 @@ DNS records are organized in zones as each zone matches either a domain/subdomai
 Each zone can contain records of various kinds (**Resource Records**).
 
 ## Resource records
-*A*: IPv4 address.
+**A**: IPv4 address.
 
-*CNAME*: alias (canonical name).
+**CNAME**: alias (canonical name).
 
-*MX*: mail exchange, an email server. This information is used by other email servers to find where to send email addressed to a given address. Each MX record has a priority. The highest-priority server (with the lowest number) is tried first.
+**MX**: mail exchange, an email server. This information is used by other email servers to find where to send email addressed to a given address. Each MX record has a priority. The highest-priority server (with the lowest number) is tried first.
 
-*PTR*: mapping of an IP address to a name. Such a record is stored in a “reverse DNS” zone named after the IP address range. For example, 1.168.192.in-addr.arpa is the zone containing the reverse mapping for all addresses in the 192.168.1.0/24 range.
+**PTR**: mapping of an IP address to a name. Such a record is stored in a “reverse DNS” zone named after the IP address range. For example, 1.168.192.in-addr.arpa is the zone containing the reverse mapping for all addresses in the 192.168.1.0/24 range.
 
-*AAAA*: IPv6 address.
+**AAAA**: IPv6 address.
 
-*NS*: maps a name to a name server. Each domain must have at least one NS record. These records point at a DNS server that can answer queries concerning this domain, they usually point at the primary and secondary servers for the domain. These records also allow DNS delegation; for instance, the falcot.com zone can include an NS record for  internal.falcot.com, which means that the internal.falcot.com zone is handled by another server. Of course, this server must declare an internal.falcot.com zone.
+**NS**: maps a name to a name server. Each domain must have at least one NS record. These records point at a DNS server that can answer queries concerning this domain, they usually point at the primary and secondary servers for the domain. These records also allow DNS delegation; for instance, the falcot.com zone can include an NS record for  internal.falcot.com, which means that the internal.falcot.com zone is handled by another server. Of course, this server must declare an internal.falcot.com zone.
