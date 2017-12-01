@@ -23,6 +23,10 @@ Connect to the MariaDB database server, specify the username, the host name and 
 ```{r, engine='bash', count_lines}
 [root@server ~]# mysql -u root -h localhsot -p 
 [root@server ~]# SHOW DATABASES; 
+MariaDB [(mysql)]> CREATE DATABASE inventory;
+MariaDB [(mysql)]> USE inventory; 
+MariaDB [(mysql]> SHOW TABLES; 
+MariaDB [(mysql)]> DESCRIBE products;
 ```
 
 
