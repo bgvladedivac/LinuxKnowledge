@@ -8,3 +8,22 @@ Each row in a table has its own unique key. Rows in a table can be linked to row
 ## Database normalization
 Database normalization is the process of organizing the columns (attributes) and tables (relations) of a relational database to reduce data redundancy and improve data integrity. Normalization is also the process of simplifying the design of a database so that it achieves the optimal structure composed of atomic elements.
 
+## MariaDB
+A community-developed branch of MySQL built by some of the original authors of MySQL. 
+
+## Installation Security
+MariaDB provides a program to improve security from the baseline install state **mysql_secure_installation**.  This program enables improvement of MariaDB security by setting a password for root accounts, removing root accouts that accessible from the outside localhost, removes anonymous-user accounts and removes the test database.
+
+The script is fully interactive, and will prompt for each step in the process.
+
+## Creating a database 
+The installation of the mariadb provides a program called **mysql**. With this program, it is possible to connect to a local or remote MariaDB database server. 
+
+Connect to the MariaDB database server, specify the username, the host name and prompt for the password.
+```{r, engine='bash', count_lines}
+[root@server ~]# mysql -u root -h localhsot -p 
+[root@server ~]# SHOW DATABASES; 
+```
+
+
+
