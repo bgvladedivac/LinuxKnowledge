@@ -45,7 +45,20 @@ cron . *
 ```
 
 ## Log file rotation
-Logs are rotated by the **logrotate** utility to keep them from filling up the file system containing **/var/log**. When a log file is rotated, it is renamed with an extension indicating the date on which it was rotated:**/var/log/messages8** may become **/var/log/messages-2016-0330**. After a certain number of rotatins, typically after four weeks, the old log file is discarded to free disk space. A cron job runs the logrotate progra daily to see if any logs need to be rotated.
+Logs are rotated by the **logrotate** utility to keep them from filling up the file system containing **/var/log**. When a log file is rotated, it is renamed with an extension indicating the date on which it was rotated:**/var/log/messages8** may become **/var/log/messages-2016-0330**. After a certain number of rotatins, typically after four weeks, the old log file is discarded to free disk space. A cron job runs the logrotate progra daily to see if any logs need to be rotated. 
+
+The configuration for the logrotate is under **/etc/logrotate.conf**. If you want to add a custom service directrories, you could do it under **/etc/logrotate.d**. A great way to test your configuration is by running logrotate with **-d** for debug and verbos. It's not going to make any changes, just tell you if and what something is going to be changed. 
+
+```{r, engine='bash', count_lines}
+[root@ip-192-168-0-1 logrotate.d]# logrotate -d yum
+reading config file yum
+Allocating hash table for state file, size 15360 B
+Handling 1 logs
+rotating pattern: /var/log/yum.log  yearly (no old logs will be kept)
+empty log files are not rotated, old logs are removed
+considering log /var/log/yum.log
+log does not need rotating (log has been already rotated)
+```
 
 ## Monitoring logs with tail
 The **tail -f /path_to_file** ouputs the last 10 lines of the file and continues to output new lines as they get written to the monitored file. 
