@@ -28,6 +28,7 @@ System calls are generally not invoked directly, but rather via wrapper function
 1 => standart ouput. <br /> 
 2 => standart error. <br />
 
+The command **strace** will display the system calls that a process makes as it runs with the **-c** option.
 
 ```c
 The following code, opens tfile twice, write once and read once via two different file descriptors.
