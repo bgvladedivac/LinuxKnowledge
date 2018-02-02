@@ -80,3 +80,28 @@ Many Linux distributions ship a single, generer Linux kernel image. The device d
 The bootloader will load the kernel and initial root file system image into memory. 
 
 Almost all Linux nodes uses initramfs. The only purpose of an initramfs is to mount the root filesystem. It is bundled into a single cpio archive and compressed with one of several compression algorithms. The location of the initramfs is */boot*.
+
+
+## Fetching Kernel Source on CentOS
+
+```{r, engine='bash', count_lines}
+yumdownloader --source kernel # fetch the source in rpm
+rpm -iv kernel*.rpm
+cd ~/rpmbuild/SPECS
+rpmbuild -bp kernel.spec 2> /tmp/modules # you might need to install some dependencies
+for i in $(cat /tmp/modules);do yum -y install $i;done
+```
+
+All configuration choices are stored in .config.
+Do not edit it directly, use the make file.
+
+```
+make menuconfig 
+make xconfig
+```
+
+
+
+
+
+
