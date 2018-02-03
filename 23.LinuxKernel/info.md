@@ -46,7 +46,55 @@ sig_hashalgo:   sha256
 ```
 To display the comprehensive configuration of all the modules *$ modprobe -c | less*, to display the configuration of a particular module *modeprobe -c | grep module_name*. List the dependencies of a module *modprobe -c | grep mod_name*.
 
-A standard directory in Linux where driver files are stored is */lib/modules/$Kernel_version/kernel/drivers/*.  Most files are *XZ compressed data* ending in *.ko* extensions. 
+A standard directory in Linux where driver files are stored is */lib/modules/$Kernel_version/kernel/drivers/*.  Most files are *XZ compressed data* ending in *.ko* extensions. Ko stands for kernel object.
+
+
+To get information about a module, use the *modinfo mod_name*:
+```{r, engine='bash', count_lines}
+[root@localhost 3.10.0-693.el7.x86_64]# modinfo xt_conntrack
+filename:       /lib/modules/3.10.0-693.el7.x86_64/kernel/net/netfilter/xt_conntrack.ko.xz
+alias:          ip6t_conntrack
+alias:          ipt_conntrack
+description:    Xtables: connection tracking state match
+author:         Jan Engelhardt <jengelh@medozas.de>
+author:         Marc Boucher <marc@mbsi.ca>
+license:        GPL
+rhelversion:    7.4
+srcversion:     FE59F0C3EDC3B3EAC3BA22E
+depends:        nf_conntrack
+intree:         Y
+vermagic:       3.10.0-693.el7.x86_64 SMP mod_unload modversions
+signer:         CentOS Linux kernel signing key
+sig_key:        DA:18:7D:CA:7D:BE:53:AB:05:BD:13:BD:0C:4E:21:F4:22:B6:A4:9C
+sig_hashalgo:   sha256
+
+```
+
+Each module is loaded with the **module_init**, when removed the **module_exit** is used. Basic C file for a module.
+
+```{r, engine='bash', count_lines}
+#include <linux/module.h>
+#include <linux/sched.h>
+#include <linux/kernel.h>
+
+int my_init_module (void)
+{
+	printk("The module is now loaded\n");
+	return 0;
+}
+
+module_init (my_init_module);
+
+void my_cleanup_module (void)
+{
+	printk("The module is now unloaded\n");
+}
+
+module_exit (my_cleanup_module)
+
+```
+
+After initialization of the module search in **dmesg** for the output.
 
 ## Kernel Data Structures
 
