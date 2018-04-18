@@ -5,7 +5,11 @@ DNS records are organized in zones as each zone matches either a domain/subdomai
 
 The DNS delegates the responsibility of assigning domain names and mapping those names to Internet resources by designating authoritative name servers for each domain. DNS consists of a tree data structure. Each node or leaf in the tree has a label and zero or more **resource records (RR)**, which hold information associated with the domain name.
 
-The DNS hierarchy begins with the *root* domain '.' at the top and branches downward to multiple next-level domains. Domains such as **com**, **net**, **org** ... occupy the second level of the hierarchy and domains such as **example.com** occupy the third level and so on ...
+The DNS hierarchy begins with the *root* domain '.' at the top and branches downward to multiple next-level domains. Domains such as **com**, **net**, **org** ... occupy the second level of the hierarchy and domains such as **example.com** occupy the third level and so on ... The top level domains are contolled by the Internet Assigned Numbers Authority(IANA) in a root zone db. http://www.iana.org/domains/root/db
+
+Each domain name becomes registered in a central database known as the WhoIS database.
+
+TTL is the length that a DNS record is cached on either the Resolving Server or the users own local PC.
 
 ## Domain/Zone
 A domain is a collection of resource records that ends in a common name and represents an entire subtree of the DNS name space.
@@ -32,6 +36,9 @@ www.example.com. 300    IN         A          192.168.0.2
 **AAAA**: IPv6 address.
 
 **NS**: maps a name to a name server. Each domain must have at least one NS record. These records point at a DNS server that can answer queries concerning this domain, they usually point at the primary and secondary servers for the domain. These records also allow DNS delegation; for instance, the falcot.com zone can include an NS record for  internal.falcot.com, which means that the internal.falcot.com zone is handled by another server. Of course, this server must declare an internal.falcot.com zone.
+
+The **CNAME** record maps a name to another name. It should only be used when there are no other records on that name.
+The **ALIAS** record maps a name to another name, but in turns it can coexist with other records on that name.
 
 ## Auhtoritative name server
 An authoritative name server is a name server that only gives answers to DNS queries from data that has been configured by an original source, for example, the domain administrator or by dynamic DNS methods, in contrast to answers obtained via a query to another name server that only maintains a cache of data.
